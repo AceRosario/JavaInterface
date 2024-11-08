@@ -3,43 +3,42 @@ import javax.swing.*;
 public class Student implements Status {
     private int id;
     private String name;
-    private double [] scores;
+    private double[] scores;
 
-    public Student(int id, String n, int[] s){
+    public Student(int id, String n, int[] s) {
         this.id = id;
         this.name = n;
         scores = new double[s.length];
-        System.arraycopy(s,0,scores,0,s.length);
+        for (int i = 0; i < s.length; i++) {
+            scores[i] = s[i];
+        }
     }
 
     public int getId() {
         return id;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public double[] getScores(){
+    public double[] getScores() {
         return scores.clone();
     }
 
-    public String getStatus ( )
-    {
-        String status="";
-
-        status="Student\nid="+id+", name="+name+", socres= ";
-        for (int i=0;i<scores.length;i++)
-        {
-            status=status+scores[i]+" ";
+    @Override
+    public String getStatus() {
+        StringBuilder status = new StringBuilder("Student\nid=" + id + ", name=" + name + ", scores= ");
+        for (double score : scores) {
+            status.append(score).append(" ");
         }
-        status=status+"\n";
-        return status;
+        status.append("\n");
+        return status.toString();
     }
 
-    public void displayStatus()
-    {
-        String status=getStatus ();
-        JOptionPane.showMessageDialog (null, status);
+    @Override
+    public void displayStatus() {
+        String status = getStatus();
+        JOptionPane.showMessageDialog(null, status);
     }
 }
